@@ -22,10 +22,10 @@
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
-$jQuery = isset($jQuery) ? $jQuery : '1';
+$jQuery = isset($jQuery) ? $jQuery : '0';
 $LoadStyles = isset($LoadStyles) ? $LoadStyles : '1';
 $mode = isset($mode) ? $mode : 'optin';
-$waitfor = isset($waitfor) ? $waitfor : '7';
+$waitfor = isset($waitfor) ? $waitfor : '5';
 $ModalTpl = isset($ModalTpl) ? $ModalTpl : 'ModalOptin-tpl';
 
 
@@ -60,27 +60,17 @@ $scriptoutput .='
 <script src="assets/snippets/modalx/js/wait.min.js"></script>
 <script>
 idleTime = 0;
-$(document).ready(function(){
-	$limit = '.$waitfor.';
-	
-	if ($.cookie("modalx_wait") != "1") {
-		setTimeout(function(){
-            // make the modal appear
-            $(".mct_optin").modal({
-  		fadeDuration: 1000,
-  		fadeDelay: 0.50
-		});
-        }, 2000);
+jQuery(document).ready(function( $ ) {
+	$limit = '.$waitfor.';	
+	if ($.cookie("modalx_wait") != "1") {      
 		function timerIncrement() {
 			idleTime = idleTime + 1;
 			if (idleTime > $limit) { 
-				$(".subs-popup ").show();
-				idleTime = 0;
+				    $(".mct_optin").modal();
+					idleTime = 0;
 			}
-		}
-		
+		}		
 		var idleInterval = setInterval(timerIncrement, 1000); // 1 second
-
 		$(this).mousemove(function (e) {
 			idleTime = 0;
 		});
