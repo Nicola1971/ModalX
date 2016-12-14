@@ -25,7 +25,7 @@ if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 $jQuery = isset($jQuery) ? $jQuery : '1';
 $LoadStyles = isset($LoadStyles) ? $LoadStyles : '1';
 $mode = isset($mode) ? $mode : 'optin';
-$waitfor = isset($waitfor) ? $waitfor : '2';
+$waitfor = isset($waitfor) ? $waitfor : '7';
 $ModalTpl = isset($ModalTpl) ? $ModalTpl : 'ModalOptin-tpl';
 
 
