@@ -2,7 +2,7 @@
  * ModalX
  *
  * Modal Optin for Evo
- * @version   1.0RC
+ * @version   1.1RC
  * @author      Author: Nicola Lambathakis http://www.tattoocms.it/
  *
  * @category	snippet
@@ -21,17 +21,22 @@
  * @internal	@modx_category Forms
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  */
+/*
+* examples
+* [[ModalX? &mode=`optin` &ModalTpl=`ModalContact-tpl`]]
+* [[ModalX? &mode=`idle` &waitfor=`7` &ModalTpl=`ModalRegister-tpl`]]
+*/
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
-$jQuery = isset($jQuery) ? $jQuery : '0';
+$jQuery = isset($jQuery) ? $jQuery : '1';
 $LoadStyles = isset($LoadStyles) ? $LoadStyles : '1';
-$mode = isset($mode) ? $mode : 'optin';
+$mode = isset($mode) ? $mode : 'exit';
 $waitfor = isset($waitfor) ? $waitfor : '5';
 $ModalTpl = isset($ModalTpl) ? $ModalTpl : 'ModalOptin-tpl';
 
 
 //modal css styles
 if($LoadStyles == "1"){
-if($mode == "optin"){
+if($mode == "exit"){
 $cssoutput='<link rel="stylesheet" href="assets/snippets/modalx/css/optin.css">';
 }
 else {
@@ -46,7 +51,7 @@ $scriptoutput .='
 //jquery.cookie and optin/wait js
 $scriptoutput .='
 <script src="assets/snippets/modalx/js/jquery.cookie.min.js"></script>';
-if($mode == "optin"){
+if($mode == "exit"){
 $scriptoutput .='<script src="assets/snippets/modalx/js/optin.min.js"></script>
 <script>
 jQuery(document).ready(function(){
@@ -55,14 +60,14 @@ jQuery(document).ready(function(){
 });
 </script>';
 }
-else if($mode == "wait"){
+else if($mode == "idle"){
 $scriptoutput .='
 <script src="assets/snippets/modalx/js/wait.min.js"></script>
 <script>
 idleTime = 0;
 jQuery(document).ready(function( $ ) {
 	$limit = '.$waitfor.';	
-	if ($.cookie("modalx_wait") != "1") {      
+	if ($.cookie("modalx_idle") != "1") {      
 		function timerIncrement() {
 			idleTime = idleTime + 1;
 			if (idleTime > $limit) { 
@@ -78,7 +83,7 @@ jQuery(document).ready(function( $ ) {
 			idleTime = 0;
 		});
 		
-		$.cookie("modalx_wait", "1", { expires: 30 });
+		$.cookie("modalx_idle", "1", { expires: 30 });
 	}
 	
 });
